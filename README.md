@@ -30,3 +30,5 @@ Future improvements:
 - Request and display forecast information
 - Add a list of preferred cities persist it
 - Use the tile server to display conditions on a map using MapKit
+- Implement a generic json parser that produces swift structures instead of the custom one
+
