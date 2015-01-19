@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import UIKit
 
 protocol WeatherManagerDelegate {
     func weatherManager(weatherManager: WeatherManager, didChangeCurrentConditions conditions: Conditions?)
@@ -36,9 +37,20 @@ class WeatherManager : NSObject, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
         locationManager.delegate = self
         
-        timer = Timer(interval: 60, queue: queue) {
+        timer = Timer(interval: 60, queue: nil, repeats: true) {
             self.requestCurrentConditions()
-        }        
+        }
+        
+        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: nil) { notification in
+            self.timer.start()
+            self.locationManager.startUpdatingLocation()
+            self.requestCurrentConditions()
+        }
+        
+        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidEnterBackgroundNotification, object: nil, queue: nil) { notification in
+            self.timer.stop()
+            self.locationManager.stopUpdatingLocation()
+        }
     }
     
     private func requestConditions(urlPath: String) {

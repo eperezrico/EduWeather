@@ -58,6 +58,7 @@ class ServerRequest : NSObject, NSURLConnectionDataDelegate {
     }
 }
 
+
 extension String {
     func stringByAddingUrlEncoding() -> String {
         let characterSet = NSMutableCharacterSet.alphanumericCharacterSet()

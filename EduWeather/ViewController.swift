@@ -54,14 +54,11 @@ class ViewController: UIViewController, WeatherDelegate, UITextFieldDelegate {
         super.viewDidLoad()
         
         weather.delegate = self
-        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: nil) { notification in
-            self.weather.requestCurrentConditions()
-        }
     }
     
     func weather(weather: Weather, didChangeCurrentConditions conditions: Conditions?) {
         
-        if conditions == nil {
+        if conditions == nil || cityTextField.isFirstResponder() {
             return
         }
         

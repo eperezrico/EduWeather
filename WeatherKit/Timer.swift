@@ -15,22 +15,11 @@ class Timer {
     let interval: NSTimeInterval
     let queue: dispatch_queue_t?
     
-    init(interval: NSTimeInterval, queue: dispatch_queue_t?, repeats: Bool, autostart: Bool, handler: () -> ()) {
+    init(interval: NSTimeInterval, queue: dispatch_queue_t?, repeats: Bool, handler: () -> ()) {
         self.interval = interval
         self.queue = queue
         self.handler = handler
         self.repeats = repeats
-        if autostart {
-            self.start()
-        }
-    }
-    
-    init(interval: NSTimeInterval, queue: dispatch_queue_t?, handler: () -> ()) {
-        self.interval = interval
-        self.queue = queue
-        self.handler = handler;
-        self.repeats = true
-        self.start()
     }
     
     func start() {
