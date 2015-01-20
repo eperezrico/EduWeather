@@ -21,7 +21,7 @@
 		A02416921A6C929D007A1FD1 /* Conditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A024168E1A6C929D007A1FD1 /* Conditions.swift */; };
 		A02416931A6C929D007A1FD1 /* ServerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A024168F1A6C929D007A1FD1 /* ServerRequest.swift */; };
 		A02416941A6C929D007A1FD1 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02416901A6C929D007A1FD1 /* Timer.swift */; };
-		A02416971A6C93EF007A1FD1 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02416961A6C93EF007A1FD1 /* WeatherManager.swift */; };
+		A02416971A6C93EF007A1FD1 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02416961A6C93EF007A1FD1 /* Weather.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,7 +90,7 @@
 		A024168E1A6C929D007A1FD1 /* Conditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conditions.swift; sourceTree = "<group>"; };
 		A024168F1A6C929D007A1FD1 /* ServerRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerRequest.swift; sourceTree = "<group>"; };
 		A02416901A6C929D007A1FD1 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
-		A02416961A6C93EF007A1FD1 /* WeatherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
+		A02416961A6C93EF007A1FD1 /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,7 +192,7 @@
 		A024166F1A6C91E6007A1FD1 /* WeatherKit */ = {
 			isa = PBXGroup;
 			children = (
-				A02416961A6C93EF007A1FD1 /* WeatherManager.swift */,
+				A02416961A6C93EF007A1FD1 /* Weather.swift */,
 				A024168E1A6C929D007A1FD1 /* Conditions.swift */,
 				A024168F1A6C929D007A1FD1 /* ServerRequest.swift */,
 				A02416901A6C929D007A1FD1 /* Timer.swift */,
@@ -416,7 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A02416941A6C929D007A1FD1 /* Timer.swift in Sources */,
-				A02416971A6C93EF007A1FD1 /* WeatherManager.swift in Sources */,
+				A02416971A6C93EF007A1FD1 /* Weather.swift in Sources */,
 				A02416931A6C929D007A1FD1 /* ServerRequest.swift in Sources */,
 				A02416921A6C929D007A1FD1 /* Conditions.swift in Sources */,
 			);
