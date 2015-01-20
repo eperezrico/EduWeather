@@ -32,20 +32,25 @@ class ViewController: UIViewController, WeatherDelegate, UITextFieldDelegate {
     }
     
     @IBAction func tapCity(sender: AnyObject) {
-        cityTextField.text = nil
-        cityTextField.hidden = false
-        cityLabel.hidden = true
-        cityTextField.becomeFirstResponder()
-    }
+        weather.automaticallyUpdateCurrentConditions = false // Stop auto-refresh while the user is entering the city
 
+        openSearchTextField()
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        weather.automaticallyUpdateCurrentConditions = true //Re-start automatic update of current conditions
+    }
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == cityTextField {
-            if textField.text.isEmpty {
-                updateConditions()
-                weather.requestCurrentConditions()
-            } else {
-                weather.requestConditionsInCity(textField.text)
+            
+            if (weather.currentConditionsCustomCity == nil) != textField.text.isEmpty {
+                cityLabel.text = textField.text
+                conditions = nil
             }
+            weather.currentConditionsCustomCity = textField.text.isEmpty ? nil : textField.text;
+            updateConditions()
+            closeSearchTextField()
         }
         return true
     }
@@ -58,7 +63,7 @@ class ViewController: UIViewController, WeatherDelegate, UITextFieldDelegate {
     
     func weather(weather: Weather, didChangeCurrentConditions conditions: Conditions?) {
         
-        if conditions == nil || cityTextField.isFirstResponder() {
+        if conditions == nil {
             return
         }
         
@@ -66,31 +71,44 @@ class ViewController: UIViewController, WeatherDelegate, UITextFieldDelegate {
         updateConditions()
     }
     
-    func formattedTemp(kelvin: Float) -> String {
+    private func formattedTemp(kelvin: Float) -> String {
         return String(format: "%.1f", weather.temperatureUnit.fromKelvin(kelvin)) +  " " + weather.temperatureUnit.symbol
     }
     
-    func updateConditions() {
-        
-        cityLabel.hidden = false
-        tempLabel.hidden = false
-        tempUnitLabel.hidden = false
-        detailView.hidden = false
-
-        cityLabel.text = conditions!.city
-        tempLabel.text = String(format: "%.0f", weather.temperatureUnit.fromKelvin(conditions!.temperature))
-        tempUnitLabel.text = weather.temperatureUnit.symbol
-        maxTempLabel.text = formattedTemp(conditions!.maxTemp)
-        minTempLabel.text = formattedTemp(conditions!.minTemp)
-        humidityLabel.text = "\(conditions!.humidity) %"
-        pressureLabel.text = "\(conditions!.pressure) hpa"
-        
-        let iconData = conditions!.iconData
-        iconImageView.image = iconData == nil ? nil : UIImage(data: iconData!)
-        
+    private func openSearchTextField() {
+        cityTextField.text = nil
+        cityTextField.hidden = false
+        cityLabel.hidden = true
+        cityTextField.becomeFirstResponder()
+    }
+    
+    private func closeSearchTextField() {
         cityTextField.resignFirstResponder()
         cityTextField.hidden = true
         cityLabel.hidden = false
+    }
+    
+    private func updateConditions() {
+        cityLabel.hidden = false
+
+        let hideDetails = conditions == nil
+        tempLabel.hidden = hideDetails
+        tempUnitLabel.hidden = hideDetails
+        detailView.hidden = hideDetails
+        iconImageView.hidden = hideDetails
+        
+        if conditions != nil {
+            cityLabel.text = conditions!.city
+            tempLabel.text = String(format: "%.0f", weather.temperatureUnit.fromKelvin(conditions!.temperature))
+            tempUnitLabel.text = weather.temperatureUnit.symbol
+            maxTempLabel.text = formattedTemp(conditions!.maxTemp)
+            minTempLabel.text = formattedTemp(conditions!.minTemp)
+            humidityLabel.text = "\(conditions!.humidity) %"
+            pressureLabel.text = "\(conditions!.pressure) hpa"
+            
+            let iconData = conditions!.iconData
+            iconImageView.image = iconData == nil ? nil : UIImage(data: iconData!)
+        }
     }
     
     override func didReceiveMemoryWarning() {
